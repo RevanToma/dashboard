@@ -1,6 +1,29 @@
 {
   "dependencies": {
-    "axios": "^1.2.2",
+    "axios": "^1.2.3",
     "express": "^4.18.2"
-  }
+  },
+  "name": "dashboard",
+  "description": "[Dashboard](https://revantoma.github.io/dashboard/)",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "buffer": "^5.7.1",
+    "bundler": "^0.8.0",
+    "parcel": "^2.8.2"
+  },
+  "scripts": {
+    "dev": "parcel index.html",
+    "prod": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RevanToma/dashboard.git"
+  },
+  "author": "Revan Toma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RevanToma/dashboard/issues"
+  },
+  "homepage": "https://github.com/RevanToma/dashboard#readme"
 }
