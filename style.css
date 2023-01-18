@@ -27,7 +27,7 @@ body[style^="background-image: url"] {
   grid-template-rows: repeat(3, 1fr);
   width: 100vw;
   height: 100vh;
-  transition: all 0.3s ease 0s;
+  transition: all 0.3s ease;
 }
 .weatherContainer {
   grid-column: 3;
@@ -134,7 +134,7 @@ span.date {
 
   width: 25rem;
   height: 15rem;
-  padding: 2rem;
+  padding: 1.5rem;
 }
 *.activity {
   /* padding: 1rem; */
