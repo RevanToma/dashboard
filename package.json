@@ -4,7 +4,6 @@
     "express": "^4.18.2"
   },
   "name": "dashboard",
-  "description": "[Dashboard](https://revantoma.github.io/dashboard/)",
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
