@@ -1,5 +1,5 @@
 "user strict";
-import axios from "axios";
+
 import {
   UNSPLASH_ID,
   WEATHER_API_KEY,
@@ -71,7 +71,9 @@ const diplayBackgroundImage = async function () {
       let imgs = img.urls.full;
       let markup = `
          <p class="alt_description">${img.alt_description}.</p>
-        <p class="author">Image created by ${img.user.first_name} ${img.user.last_name}.</p>
+        <p class="author">Image created by ${img.user.first_name} ${
+        img.user.last_name ? "" : img.user.last_name
+      }.</p>
          `;
       ImgDescription.innerHTML = markup;
       backgroundImage.style.backgroundImage = `url('${imgs}')`;

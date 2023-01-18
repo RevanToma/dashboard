@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const ErrorMessage = (error) => {
   if (error.response) {
     console.log(
