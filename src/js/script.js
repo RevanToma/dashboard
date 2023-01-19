@@ -19,8 +19,6 @@ import {
   renderErrorTimeMsg,
   renderErrorImgMsg,
   renderErrorMsgJokes,
-  preload,
-  preloadAll,
 } from "./helper.js";
 
 const dashboardContainer = document.querySelector(".dashboardContainer");
@@ -174,6 +172,41 @@ const showWeather = async function (lat, lon) {
     throw error;
   }
 };
+
+const returnData = async function () {
+  const { data } = await AJAX(`${UNSPLASH_URL_BACKGROUND_IMG}${UNSPLASH_ID}`);
+  const urls = data.map((url) => url.urls.full);
+  return urls;
+};
+
+const loadImage = async function (url) {
+  const urls = await url;
+  let image = new Image();
+  image.onload = () => resolve(image);
+  image.src = urls;
+};
+
+const addImg = async (src, imgUrl) => {
+  try {
+    const { data } = await AJAX(imgUrl);
+
+    const imgEl = document.createElement("img");
+    imgEl.src = src;
+    data.forEach((img) => {
+      let markup = `
+      <p class="alt_description">${img.alt_description}.</p>
+      <p class="author">Image created by ${img.user.first_name} ${
+        img.user.last_name ? "" : img.user.last_name
+      }.</p>
+      `;
+      ImgDescription.innerHTML = markup;
+      backgroundImage.style.backgroundImage = `url('${imgEl.src}')`;
+    });
+  } catch (error) {
+    renderErrorImgMsg(ImgDescription);
+  }
+};
+
 const init = function () {
   getWeather();
   diplayBackgroundImage();
@@ -193,6 +226,14 @@ init();
   }, 1000);
 })();
 
-setInterval(diplayBackgroundImage, BACKGROUND_IMAGE_SEC * 1000);
+setInterval(() => {
+  loadImage(
+    returnData().then((data) =>
+      data.forEach((img) =>
+        addImg(img, `${UNSPLASH_URL_BACKGROUND_IMG}${UNSPLASH_ID}`)
+      )
+    )
+  );
+}, BACKGROUND_IMAGE_SEC * 1000);
 setInterval(boredActivity, ACTIVITY_SEC * 1000);
 setInterval(randomJoke, JOKE_SEC * 1000);
