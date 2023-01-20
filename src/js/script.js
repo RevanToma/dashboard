@@ -181,9 +181,14 @@ const returnData = async function () {
 
 const loadImage = async function (url) {
   const urls = await url;
-  let image = new Image();
-  image.onload = () => resolve(image);
-  image.src = urls;
+  return new Promise((resolve, reject) => {
+    let image = new Image();
+    image.onload = () => resolve(image);
+    const msg = `Could not load image from ${urls}`;
+    image.onerror = () => reject(new Error(msg));
+
+    image.src = urls;
+  });
 };
 
 const addImg = async (src, imgUrl) => {
@@ -227,9 +232,11 @@ init();
 setInterval(() => {
   loadImage(
     returnData().then((data) =>
-      data.forEach((img) =>
-        addImg(img, `${UNSPLASH_URL_BACKGROUND_IMG}${UNSPLASH_ID}`)
-      )
+      data
+        .forEach((img) =>
+          addImg(img, `${UNSPLASH_URL_BACKGROUND_IMG}${UNSPLASH_ID}`)
+        )
+        .catch((error) => console.error(error))
     )
   );
 }, BACKGROUND_IMAGE_SEC * 1000);

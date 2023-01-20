@@ -197,7 +197,25 @@ i.fa-spinner {
   animation: rotate 2s infinite linear;
   font-size: 2rem;
 }
+.linkContainer {
+  place-self: center;
+  margin-bottom: auto;
+  margin-top: 2rem;
+}
 
+a {
+  text-decoration: none;
+  list-style: none;
+  box-shadow: 0px 0px 2px 5px whitesmoke;
+  background-color: white;
+  font-size: 1.5rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: rgb(0, 0, 0);
+}
+a:hover {
+  box-shadow: 0px 0px 5px 5px black;
+}
 @keyframes rotate {
   0% {
     transform: rotate(0);
