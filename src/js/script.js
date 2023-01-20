@@ -195,9 +195,7 @@ const addImg = async (src, imgUrl) => {
     data.forEach((img) => {
       let markup = `
       <p class="alt_description">${img.alt_description}.</p>
-      <p class="author">Image created by ${img.user.first_name} ${
-        img.user.last_name ? "" : img.user.last_name
-      }.</p>
+      <p class="author">Image created by ${img.user.first_name} ${img.user?.last_name}.</p>
       `;
       ImgDescription.innerHTML = markup;
       backgroundImage.style.backgroundImage = `url('${imgEl.src}')`;
