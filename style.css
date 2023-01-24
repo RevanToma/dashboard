@@ -23,11 +23,6 @@ body[style^="background-image: url"] {
   background-position: center;
   min-height: 300px;
   max-height: 100vh;
-
-  animation: fadeInAnimation ease 3s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  transition: all 0.3s ease;
 }
 
 .dashboardContainer {

@@ -74,12 +74,38 @@ const diplayBackgroundImage = async function () {
       }.</p>
          `;
       ImgDescription.innerHTML = markup;
-      backgroundImage.style.backgroundImage = `url('${imgs}')`;
+      let preloadImg = new Image();
+      preloadImg.src = imgs;
+      preloadImg.onload = function () {
+        backgroundImage.style.backgroundImage = `url('${preloadImg.src}')`;
+      };
     });
   } catch (err) {
     renderErrorImgMsg(ImgDescription);
   }
 };
+
+// const loadImages = (url) => {
+//   return new Promise((resolve, reject) => {
+//     const image = new Image();
+//     image.addEventListener("load", () => {
+//       resolve(image);
+//     });
+//     image.addEventListener("load", () => {
+//       reject(error);
+//     });
+//     image.src = url;
+//   });
+// };
+
+// loadImages(`${UNSPLASH_URL_BACKGROUND_IMG}${UNSPLASH_ID}`)
+//   .then((image) => {
+//     // backgroundImage.style.backgroundImage = `url('${image.src}')`;
+//     console.log(image);
+//   })
+//   .catch((error) => {
+//     console.error(error);
+//   });
 
 const displayTime = async function () {
   try {
@@ -173,42 +199,42 @@ const showWeather = async function (lat, lon) {
   }
 };
 
-const returnData = async function () {
-  const { data } = await AJAX(`${UNSPLASH_URL_BACKGROUND_IMG}${UNSPLASH_ID}`);
-  const urls = data.map((url) => url.urls.full);
-  return urls;
-};
+// const returnData = async function () {
+//   const { data } = await AJAX(`${UNSPLASH_URL_BACKGROUND_IMG}${UNSPLASH_ID}`);
+//   const urls = data.map((url) => url.urls.full);
+//   return urls;
+// };
 
-const loadImage = async function (url) {
-  const urls = await url;
-  return new Promise((resolve, reject) => {
-    let image = new Image();
-    image.onload = () => resolve(image);
-    const msg = `Could not load image from ${urls}`;
-    image.onerror = () => reject(new Error(msg));
+// const loadImage = async function (url) {
+//   const urls = await url;
+//   return new Promise((resolve, reject) => {
+//     let image = new Image();
+//     image.onload = () => resolve(image);
+//     const msg = `Could not load image from ${urls}`;
+//     image.onerror = () => reject(new Error(msg));
 
-    image.src = urls;
-  });
-};
+//     image.src = urls;
+//   });
+// };
 
-const addImg = async (src, imgUrl) => {
-  try {
-    const { data } = await AJAX(imgUrl);
+// const addImg = async (src, imgUrl) => {
+//   try {
+//     const { data } = await AJAX(imgUrl);
 
-    const imgEl = document.createElement("img");
-    imgEl.src = src;
-    data.forEach((img) => {
-      let markup = `
-      <p class="alt_description">${img.alt_description}.</p>
-      <p class="author">Image created by ${img.user.first_name} ${img.user?.last_name}.</p>
-      `;
-      ImgDescription.innerHTML = markup;
-      backgroundImage.style.backgroundImage = `url('${imgEl.src}')`;
-    });
-  } catch (error) {
-    renderErrorImgMsg(ImgDescription);
-  }
-};
+//     const imgEl = document.createElement("img");
+//     imgEl.src = src;
+//     data.forEach((img) => {
+//       let markup = `
+//       <p class="alt_description">${img.alt_description}.</p>
+//       <p class="author">Image created by ${img.user.first_name} ${img.user?.last_name}.</p>
+//       `;
+//       ImgDescription.innerHTML = markup;
+//       backgroundImage.style.backgroundImage = `url('${imgEl.src}')`;
+//     });
+//   } catch (error) {
+//     renderErrorImgMsg(ImgDescription);
+//   }
+// };
 
 const init = function () {
   getWeather();
@@ -222,23 +248,12 @@ const init = function () {
   renderSpinner(randomJokeContainer);
 };
 init();
-
 (function () {
   setInterval(() => {
     displayTime();
   }, 1000);
 })();
 
-setInterval(() => {
-  loadImage(
-    returnData().then((data) =>
-      data
-        .forEach((img) =>
-          addImg(img, `${UNSPLASH_URL_BACKGROUND_IMG}${UNSPLASH_ID}`)
-        )
-        .catch((error) => console.error(error))
-    )
-  );
-}, BACKGROUND_IMAGE_SEC * 1000);
+setInterval(diplayBackgroundImage, BACKGROUND_IMAGE_SEC * 1000);
 setInterval(boredActivity, ACTIVITY_SEC * 1000);
 setInterval(randomJoke, JOKE_SEC * 1000);
