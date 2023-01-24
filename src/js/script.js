@@ -92,28 +92,6 @@ const diplayBackgroundImage = async function () {
   }
 };
 
-// const loadImages = (url) => {
-//   return new Promise((resolve, reject) => {
-//     const image = new Image();
-//     image.addEventListener("load", () => {
-//       resolve(image);
-//     });
-//     image.addEventListener("load", () => {
-//       reject(error);
-//     });
-//     image.src = url;
-//   });
-// };
-
-// loadImages(`${UNSPLASH_URL_BACKGROUND_IMG}${UNSPLASH_ID}`)
-//   .then((image) => {
-//     // backgroundImage.style.backgroundImage = `url('${image.src}')`;
-//     console.log(image);
-//   })
-//   .catch((error) => {
-//     console.error(error);
-//   });
-
 const displayTime = async function () {
   try {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -205,43 +183,6 @@ const showWeather = async function (lat, lon) {
     throw error;
   }
 };
-
-// const returnData = async function () {
-//   const { data } = await AJAX(`${UNSPLASH_URL_BACKGROUND_IMG}${UNSPLASH_ID}`);
-//   const urls = data.map((url) => url.urls.full);
-//   return urls;
-// };
-
-// const loadImage = async function (url) {
-//   const urls = await url;
-//   return new Promise((resolve, reject) => {
-//     let image = new Image();
-//     image.onload = () => resolve(image);
-//     const msg = `Could not load image from ${urls}`;
-//     image.onerror = () => reject(new Error(msg));
-
-//     image.src = urls;
-//   });
-// };
-
-// const addImg = async (src, imgUrl) => {
-//   try {
-//     const { data } = await AJAX(imgUrl);
-
-//     const imgEl = document.createElement("img");
-//     imgEl.src = src;
-//     data.forEach((img) => {
-//       let markup = `
-//       <p class="alt_description">${img.alt_description}.</p>
-//       <p class="author">Image created by ${img.user.first_name} ${img.user?.last_name}.</p>
-//       `;
-//       ImgDescription.innerHTML = markup;
-//       backgroundImage.style.backgroundImage = `url('${imgEl.src}')`;
-//     });
-//   } catch (error) {
-//     renderErrorImgMsg(ImgDescription);
-//   }
-// };
 
 const init = function () {
   getWeather();
