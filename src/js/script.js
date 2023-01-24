@@ -35,9 +35,16 @@ const randomJoke = async function () {
 
     let markup = `
       <p>${setup}</p>
-      <p>Punchline: ${punchline}</p>    
+        <button id="punchBtn">Show Punchline</button>
+      <div class="punchLine_container hidden">
+          <p>Punchline: ${punchline}</p>    
+      </div>
     `;
     randomJokeContainer.innerHTML = markup;
+    document.querySelector("#punchBtn").addEventListener("click", (e) => {
+      document.querySelector(".punchLine_container").classList.toggle("hidden");
+      document.querySelector("#punchBtn").classList.add("hidden");
+    });
   } catch (err) {
     renderErrorMsgJokes(randomJokeContainer);
   }
@@ -52,7 +59,7 @@ const boredActivity = async function () {
     <p class="activity">Bored is a free API to find something to do by getting suggestions for random activities.</p>
       <span class="activity">Todays suggestion:</span>
       <span class="activity">${activity}.</span>
-      <span class="activity">Type: ${type}</p>
+      <span class="activity type">Type: ${type}</p>
         `;
 
     activityContainer.innerHTML = markup;
